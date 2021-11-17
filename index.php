@@ -7,6 +7,10 @@ $model = new PPokerData();
 require "classes/PPokerActions.php";
 $controller = new PPokerActions($model);
 
+//Datenbank Controller
+require "classes/DBAccess.php";
+$dbAccess = new DBAccess();
+
 if(isset($_REQUEST['action'])){
     $action=$_REQUEST['action'];
     if(isset($_REQUEST['actionValue'])){
