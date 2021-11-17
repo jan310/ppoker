@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `ppoker`.`user` (
   `firstName` VARCHAR(45) NULL,
   `lastName` VARCHAR(45) NULL,
   `email` VARCHAR(100) NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(255) NULL,
   `registrationDate` DATE NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
