@@ -1,25 +1,17 @@
 <?php
 
+
 class DBAccess
 {
 
     private $conn = NULL;
      
     function __construct() {
-        $this->conn = new PDO('mysql:host=localhost;dbname=mustermann', "root", "") or die("db-error");
+        $this->conn = new PDO('mysql:host=localhost;dbname=ppoker', "root", "") or die("db-error");
     }
 
-    private function execute($SQL, $params){
-        // dynamic sql values in form ":name"
-        // $params in format [":name" => value, ...]
-        $stmt = $this->conn->prepare($SQL);
-        foreach ($params as $key => $value) {
-            $stmt->bindParam($key, $value);
-        }
-        $stmt->execute();
-        return $stmt;
-    }
-
+    // dynamic sql values in form ":name" or "?"
+    // $params in format [":name" => value, ...] or [$values, ...] respectively
     private function executeFetchAll($SQL, $params){
         return $this->execute($SQL, $params)->fetchAll();
     }
@@ -29,32 +21,42 @@ class DBAccess
     }
 
     private function executeNoFetch($SQL, $params){
-        $this->execute($SQL, $params)
+        $this->execute($SQL, $params);
     }
-
-    public function getThing($param=""){
-        return $this->executeFetchAll("SELECT vorname, nachname FROM team WHERE vorname LIKE :name OR bereich LIKE :name",
-            [":name" => $param]
-        );
-    }
-
-    private function getPasswordBy($id){
-        return $this->executeFetchOne("SELECT password FROM Users WHERE id = :id",
-            [":id" => $id]
-        )["password"];
-    }
-
+    
     public function passwordIsValid($id, $password){
         $hash = $this->getPasswordBy($id);
-        return password_verify('mypassword', $hash);
+        return password_verify($password, $hash);
     }
-
-    public function createUser($id, $firstName, $lastName, $password){
+    
+    public function createUser($firstName, $lastName, $email, $password){
         $hash = $this->hashPassword($password);
+        $this->executeNoFetch("INSERT INTO user(firstName, lastName, email, password, registrationDate) VALUES(:firstName, :lastName, :email, :password, CURDATE())",
+            [
+                ":firstName" => $firstName,
+                ":lastName" => $lastName,
+                ":email" => $email,
+                ":password" => $hash
+            ]
+        );
+    }
+    
+    private function getPasswordBy($id){
+        return $this->executeFetchOne("SELECT password FROM user WHERE id = :id",
+            [
+                ":id" => $id
+            ]
+        )["password"];
     }
 
     private function hashPassword($password){
         return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    private function execute($SQL, $params){
+        $stmt = $this->conn->prepare($SQL);
+        $stmt->execute($params);
+        return $stmt;
     }
     
 }
