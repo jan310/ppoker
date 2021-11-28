@@ -1,5 +1,5 @@
 <?php
-
+require "Status.php"
 
 class DBAccess
 {
@@ -27,6 +27,17 @@ class DBAccess
     public function passwordIsValid($id, $password){
         $hash = $this->getPasswordBy($id);
         return password_verify($password, $hash);
+    }
+
+
+    public function inviteUserToGame($userId, $gameId){
+        $this->executeNoFetch("INSERT INTO participation(userid, gameid, date, status) VALUES(:userId, :gameId, CURDATE(), :status)",
+            [
+                ":userId"->$userId,
+                ":gameId"->$gameId,
+                ":status"->Status::INVITED->value
+            ]
+        );
     }
     
     public function createUser($firstName, $lastName, $email, $password){
