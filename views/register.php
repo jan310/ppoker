@@ -67,9 +67,9 @@ if(isset($_REQUEST['firstName']) && isset($_REQUEST['lastName']) && isset($_REQU
     require "../classes/DBAccess.php";
     $dbAccess = new DBAccess();
 
-    $dbEmail = $dbAccess->executeFetchOne("SELECT email from ppoker.user where email = :email", [":email" => $email]);
+    
 
-    if (!$dbEmail) {
+    if (!$dbAccess->emailInUse($email)) {
         $dbAccess->createUser($firstName,$lastName,$email,$password);
         echo "<script>window.location.href = 'signin.php'</script>";
     }

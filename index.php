@@ -30,7 +30,7 @@ require "views/IPage.php"; // Interface "IPage"
 if (isset($_REQUEST['page'])) {
     $page=$_REQUEST['page'];
 }else{
-    $page="Startseite";
+    $page="signin";
 }
 // punkte und Slasches entfernen
 $page=str_replace(".","",$page);
@@ -38,8 +38,8 @@ $page=str_replace(".","",$page);
 $pagePath="views/$page.php";
 
 if(!file_exists($pagePath)){
-    $pagePath="views/Startseite.php"; //TODO Fehlerseite
-    $page="Startseite";
+    $pagePath="views/signin.php"; //TODO Fehlerseite
+    $page="signin";
 }
 
 require $pagePath;

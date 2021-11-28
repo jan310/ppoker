@@ -17,30 +17,57 @@
   <body class="text-center">
     
 <main class="form-signin">
-  <form>
-    <h1 class="h3 mb-3 fw-normal"> ♣ ♦ Sign In ♠ ♥</h1>
+  <form method="post" action="signin.php"> 
+    <h1 class="h3 mb-3 fw-normal"> ♣ ♦ <span id="signIn">Sign In</span> ♠ ♥</h1>
+    <h1 class="h3 mb-3 fw-normal" id="errorMessage2"></h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="name@example.com" required>
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="Password" required>
       <label for="floatingPassword">Password</label>
     </div>
 
     <div class="d-grid gap-3">
       <div><button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button></div>
-        <form action="neueseite.html">
-         <div>
+      
           <div><button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href = 'register.php';">Register</button></div>
-         </div>
-        </form>     
+      
     </div>
 
     <p class="mt-5 mb-3 text-muted">&copy; Klingler | Pedersen | Ondra</p>
     
   </form>
+
+<?php 
+
+if(isset($_REQUEST['userEmail']) && isset($_REQUEST['userPassword'])){
+
+  $userEmail = htmlspecialchars($_REQUEST['userEmail']);
+  $userPassword = htmlspecialchars($_REQUEST['userPassword']);
+
+  require "../classes/DBAccess.php";
+  $dbAccess = new DBAccess();
+
+  if($dbAccess->emailInUse($userEmail)){
+    $userID = $dbAccess->getIdByEmail($userEmail);
+    if($dbAccess->passwordIsValid($userID,$userPassword)) echo "<script>window.location.href = 'homepage.php'</script>";
+    else {
+      echo "<script>document.getElementById('signIn').style.color = 'red'</script>";
+      echo "<script>document.getElementById('errorMessage2').style.color = 'red'</script>";
+      echo "<script>document.getElementById('errorMessage2').innerText = 'Falsches Passwort.'</script>";
+    }
+  }else{
+    echo "<script>document.getElementById('signIn').style.color = 'red'</script>";
+    echo "<script>document.getElementById('errorMessage2').style.color = 'red'</script>";
+    echo "<script>document.getElementById('errorMessage2').innerText = 'Falsche Email.'</script>";
+  }
+}
+
+?>
+
 </main>
 
 

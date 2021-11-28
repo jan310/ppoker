@@ -16,12 +16,24 @@ class DBAccess
         return $this->execute($SQL, $params)->fetchAll();
     }
 
-    public function executeFetchOne($SQL, $params){
+    private function executeFetchOne($SQL, $params){
         return $this->execute($SQL, $params)->fetch();
     }
 
     private function executeNoFetch($SQL, $params){
         $this->execute($SQL, $params);
+    }
+
+    public function emailInUse($email){
+        $emailInUse = $this->executeFetchOne("SELECT email from ppoker.user where email = :email", [":email" => $email]);
+        if(!$emailInUse) return false;
+        else return true;
+    }
+
+    public function getIdByEmail($email){
+        $idFitsEmail = $this->executeFetchOne("SELECT id from ppoker.user where email = :email", [":email" => $email]);
+        $idFitsEmail = $idFitsEmail["id"];
+        return $idFitsEmail;
     }
     
     public function passwordIsValid($id, $password){
