@@ -33,7 +33,7 @@
       <div><button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button></div>
         <form action="neueseite.html">
          <div>
-          <div><button class="w-100 btn btn-lg btn-primary" type="submit">Register</button></div>
+          <div><button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href = 'register.php';">Register</button></div>
          </div>
         </form>     
     </div>

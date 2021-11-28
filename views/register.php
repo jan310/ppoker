@@ -18,7 +18,8 @@
     
 <main class="form-signin">
   <form method="post" action="register.php">
-    <h1 class="h3 mb-3 fw-normal"> 🃏	Register 🃏</h1>
+      <h1 class="h3 mb-3 fw-normal"> 🃏 <span id="headline">Register</span> 🃏</h1>
+      <h1 class="h5 mb-2 fw-normal" id="errormessage"></h1>
 
 
     <div class="form-floating">
@@ -63,10 +64,20 @@ if(isset($_REQUEST['firstName']) && isset($_REQUEST['lastName']) && isset($_REQU
   $password = htmlspecialchars($_REQUEST['password']);
 
   if($email == $email2){
-    require "classes/DBAccess.php";
+    require "../classes/DBAccess.php";
     $dbAccess = new DBAccess();
 
-    $dbAccess->createUser($firstName,$lastName,$email,$password);
+    $dbEmail = $dbAccess->executeFetchOne("SELECT email from ppoker.user where email = :email", [":email" => $email]);
+
+    if (!$dbEmail) {
+        $dbAccess->createUser($firstName,$lastName,$email,$password);
+        echo "<script>window.location.href = 'signin.php'</script>";
+    }
+    else {
+        echo "<script>document.getElementById('headline').style.color = 'red'</script>";
+        echo "<script>document.getElementById('errormessage').style.color = 'red'</script>";
+        echo "<script>document.getElementById('errormessage').innerText = 'Email schon vergeben.'</script>";
+    }
   }
 
 }

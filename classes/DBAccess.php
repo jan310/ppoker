@@ -16,7 +16,7 @@ class DBAccess
         return $this->execute($SQL, $params)->fetchAll();
     }
 
-    private function executeFetchOne($SQL, $params){
+    public function executeFetchOne($SQL, $params){
         return $this->execute($SQL, $params)->fetch();
     }
 
