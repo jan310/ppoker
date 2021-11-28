@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `ppoker`.`participation` (
   `gameId` INT NOT NULL,
   `card` INT NOT NULL,
   `date` DATE NULL,
+  `status` VARCHAR(255) NULL,
   PRIMARY KEY (participationId),
   FOREIGN KEY (userId) REFERENCES user(id),
   FOREIGN KEY (gameId) REFERENCES planningGame(id))
