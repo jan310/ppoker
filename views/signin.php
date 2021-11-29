@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,7 +19,7 @@
     
 <main class="form-signin">
   <form method="post" action="signin.php"> 
-    <h1 class="h3 mb-3 fw-normal"> ♣ ♦ <span id="signIn">Sign In</span> ♠ ♥</h1>
+    <h1 class="h3 mb-3 fw-normal"> <span id="signIn">♣ ♦ Sign In ♠ ♥</span></h1>
     <h1 class="h3 mb-3 fw-normal" id="errorMessage2"></h1>
 
     <div class="form-floating">
@@ -30,11 +31,10 @@
       <label for="floatingPassword">Password</label>
     </div>
 
-    <div class="d-grid gap-3">
+    <div class="d-grid gap-2">
       <div><button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button></div>
       
-          <div><button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href = 'register.php';">Register</button></div>
-      
+      <div><button class="w-100 btn btn-lg btn-primary" type="button" onclick="window.location.href = 'register.php';">Register</button></div>  
     </div>
 
     <p class="mt-5 mb-3 text-muted">&copy; Klingler | Pedersen | Ondra</p>
@@ -43,29 +43,34 @@
 
 <?php 
 
-if(isset($_REQUEST['userEmail']) && isset($_REQUEST['userPassword'])){
+  if(isset($_REQUEST['userEmail']) && isset($_REQUEST['userPassword'])){
 
-  $userEmail = htmlspecialchars($_REQUEST['userEmail']);
-  $userPassword = htmlspecialchars($_REQUEST['userPassword']);
+    $userEmail = htmlspecialchars($_REQUEST['userEmail']);
+    $userPassword = htmlspecialchars($_REQUEST['userPassword']);
 
-  require "../classes/DBAccess.php";
-  $dbAccess = new DBAccess();
+    $_SESSION["userEmail"] = $userEmail;
 
-  if($dbAccess->emailInUse($userEmail)){
-    $userID = $dbAccess->getIdByEmail($userEmail);
-    if($dbAccess->passwordIsValid($userID,$userPassword)) echo "<script>window.location.href = 'homepage.php'</script>";
-    else {
+    require "../classes/DBAccess.php";
+    $dbAccess = new DBAccess();
+
+    if($dbAccess->emailInUse($userEmail)){
+      $userID = $dbAccess->getIdByEmail($userEmail);
+
+      $_SESSION["userID"] = $userID;
+
+      if($dbAccess->passwordIsValid($userID,$userPassword)) echo "<script>window.location.href = 'homepage.php'</script>";
+      else {
+        echo "<script>document.getElementById('signIn').style.color = 'red'</script>";
+        echo "<script>document.getElementById('errorMessage2').style.color = 'red'</script>";
+        echo "<script>document.getElementById('errorMessage2').innerText = 'Falsches Passwort.'</script>";
+      }
+    }else{
       echo "<script>document.getElementById('signIn').style.color = 'red'</script>";
       echo "<script>document.getElementById('errorMessage2').style.color = 'red'</script>";
-      echo "<script>document.getElementById('errorMessage2').innerText = 'Falsches Passwort.'</script>";
+      echo "<script>document.getElementById('errorMessage2').innerText = 'Falsche Email.'</script>";
     }
-  }else{
-    echo "<script>document.getElementById('signIn').style.color = 'red'</script>";
-    echo "<script>document.getElementById('errorMessage2').style.color = 'red'</script>";
-    echo "<script>document.getElementById('errorMessage2').innerText = 'Falsche Email.'</script>";
   }
-}
-
+  
 ?>
 
 </main>
