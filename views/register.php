@@ -74,10 +74,15 @@ if(isset($_REQUEST['firstName']) && isset($_REQUEST['lastName']) && isset($_REQU
         echo "<script>window.location.href = 'signin.php'</script>";
     }
     else {
-        echo "<script>document.getElementById('headline').style.color = 'red'</script>";
-        echo "<script>document.getElementById('errormessage').style.color = 'red'</script>";
+        echo "<script>document.getElementById('headline').style.color = 'firebrick'</script>";
+        echo "<script>document.getElementById('errormessage').style.color = 'firebrick'</script>";
         echo "<script>document.getElementById('errormessage').innerText = 'Email schon vergeben.'</script>";
     }
+  }
+  else {
+      echo "<script>document.getElementById('headline').style.color = 'firebrick'</script>";
+      echo "<script>document.getElementById('errormessage').style.color = 'firebrick'</script>";
+      echo "<script>document.getElementById('errormessage').innerText = 'Emails müssen gleich sein.'</script>";
   }
 
 }

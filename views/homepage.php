@@ -31,20 +31,20 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="homepage.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
   </head>
   <body>
     
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Startseite</a>
+    <a class="navbar-brand" href="homepage.php">Startseite</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Spiele erstellen</a>
+          <a class="nav-link active" aria-current="page" href="createGame.php">Spiele erstellen</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Meine Spiele</a>
@@ -78,7 +78,7 @@
     <p class="lead">Auf der Seite "Spiele erstellen" können Sie durch angabe eines Tasknamens, einer Taskbeschreibung und der zu einladenen Spieler ein Spiel 
       erstellen.
     </p>
-    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">Spiele erstellen &raquo;</a>
+    <a class="btn btn-lg btn-primary" href="createGame.php" role="button">Spiele erstellen &raquo;</a>
   </div>
 </main></br>
 

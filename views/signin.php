@@ -60,13 +60,13 @@
 
       if($dbAccess->passwordIsValid($userID,$userPassword)) echo "<script>window.location.href = 'homepage.php'</script>";
       else {
-        echo "<script>document.getElementById('signIn').style.color = 'red'</script>";
-        echo "<script>document.getElementById('errorMessage2').style.color = 'red'</script>";
+        echo "<script>document.getElementById('signIn').style.color = 'firebrick'</script>";
+        echo "<script>document.getElementById('errorMessage2').style.color = 'firebrick'</script>";
         echo "<script>document.getElementById('errorMessage2').innerText = 'Falsches Passwort.'</script>";
       }
     }else{
-      echo "<script>document.getElementById('signIn').style.color = 'red'</script>";
-      echo "<script>document.getElementById('errorMessage2').style.color = 'red'</script>";
+      echo "<script>document.getElementById('signIn').style.color = 'firebrick'</script>";
+      echo "<script>document.getElementById('errorMessage2').style.color = 'firebrick'</script>";
       echo "<script>document.getElementById('errorMessage2').innerText = 'Falsche Email.'</script>";
     }
   }
