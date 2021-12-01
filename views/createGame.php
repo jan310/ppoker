@@ -89,7 +89,7 @@
         require "../classes/DBAccess.php";
         $dbAccess = new DBAccess();
 
-        $dbAccess->createPlanningGame($taskName, $taskDescription);
+        $dbAccess->createPlanningGame($taskName, $taskDescription, $_SESSION["userID"]);
     }
 ?>
 

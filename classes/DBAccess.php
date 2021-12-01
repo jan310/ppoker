@@ -53,14 +53,23 @@ class DBAccess
         );
     }
 
-    public function createPlanningGame($taskName, $taskDescription) {
+    public function createPlanningGame($taskName, $taskDescription, $userID) {
         $this->executeNoFetch("INSERT INTO planninggame(userStory, description, creationDate) VALUES(:userStory, :description, CURDATE())",
             [
                 ":userStory" => $taskName,
                 "description" => $taskDescription
             ]
         );
+        $gameID = $this->conn->lastInsertId();
+        
+        $this->executeNoFetch("INSERT INTO participation(userId, gameId, card, date) VALUES(:userId, :gameId, 0, CURDATE())",
+            [
+                ":userId" => $userID,
+                ":gameId" => $gameID
+            ]
+        );
     }
+
     
     private function getPasswordBy($id){
         return $this->executeFetchOne("SELECT password FROM user WHERE id = :id",
