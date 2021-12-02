@@ -49,6 +49,16 @@ class DBAccess
 
     }
 
+    public function getInvitations($userId){
+        return $this->executeFetchAll(
+            "SELECT * FROM participation WHERE userId=:userId AND status=:status",
+            [
+                ":userId"=>$userId,
+                ":status"=>Status::INVITED->value
+            ]
+        );
+    }
+
     public function invitationExists($userId, $gameId){
         $result = $this->executeFetchOne(
             "SELECT status FROM participation WHERE userId=:userId AND gameId=:gameId",
@@ -75,6 +85,21 @@ class DBAccess
                     ":userId"=>$userId,
                     ":gameId"=>$gameId,
                     ":status"=>Status::JOINED->value
+                ]
+            );
+        }
+        else{
+            return false;
+        }
+    }
+    
+    public function declineInvitation($userId, $gameId){
+        if ($this->invitationExists($userId, $gameId)){
+            $this->executeNoFetch(
+                "DELETE FROM participation WHERE userId=:userId AND gameId=:gameId",
+                [
+                    ":userId"=>$userId,
+                    ":gameId"=>$gameId
                 ]
             );
         }
