@@ -76,6 +76,14 @@ class DBAccess
         return $array;
     }
 
+    public function getGameById($id) {
+        return $this->executeFetchOne("SELECT id, creatorId, userStory, description, creationDate FROM planninggame WHERE id = :id",
+            [
+                ":id" => $id
+            ]
+        );
+    }
+
     
     private function getPasswordBy($id){
         return $this->executeFetchOne("SELECT password FROM user WHERE id = :id",

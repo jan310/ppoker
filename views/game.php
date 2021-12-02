@@ -1,4 +1,14 @@
 <?php session_start() ?>
+
+<?php
+require "../classes/DBAccess.php";
+$dbAccess = new DBAccess();
+
+$id = $_REQUEST["gameID"];
+
+$game = $dbAccess->getGameById($id);
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -65,32 +75,9 @@
 
 <main class="container">
   <div class="p-5 rounded">
-      <h2>Meine erstellten Spiele</h2>
+      <h2><?php echo $game['userStory']; ?></h2>
   </div>
 </main></br>
-
-
-
-<?php
-    require "../classes/DBAccess.php";
-    $dbAccess = new DBAccess();
-    $array = $dbAccess->getAllCreatedGamesByUserId($_SESSION["userID"]);
-
-    foreach($array as $game){
-        echo
-        "<div class='container bg-dark p-5 rounded'>
-         <form method='post' action='game.php'>
-         <h2 class='whiteText'>{$game['userStory']}</h2>
-         <input type='hidden' name='gameID' value='{$game["id"]}'>
-         <button type='button' class='btn btn-primary mb-3'>Spieler einladen</button>
-         <button type='submit' class='btn btn-primary mb-3'>Spiel anzeigen</button>  
-         </form>              
-         </div>
-         <br>";
-    }
-
-    
-?>
 
 
 <?php
