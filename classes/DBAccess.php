@@ -54,8 +54,9 @@ class DBAccess
     }
 
     public function createPlanningGame($taskName, $taskDescription, $userID) {
-        $this->executeNoFetch("INSERT INTO planninggame(userStory, description, creationDate) VALUES(:userStory, :description, CURDATE())",
+        $this->executeNoFetch("INSERT INTO planninggame(creatorId, userStory, description, creationDate) VALUES(:creatorId, :userStory, :description, CURDATE())",
             [
+                ":creatorId" => $userID,
                 ":userStory" => $taskName,
                 "description" => $taskDescription
             ]
@@ -66,6 +67,19 @@ class DBAccess
             [
                 ":userId" => $userID,
                 ":gameId" => $gameID
+            ]
+        );
+    }
+
+    public function getAllCreatedGamesByUserId($userID){
+        $array = $this->executeFetchAll("SELECT id, userStory FROM planninggame WHERE creatorId = :userID", [":userID" => $userID]);
+        return $array;
+    }
+
+    public function getGameById($id) {
+        return $this->executeFetchOne("SELECT id, creatorId, userStory, description, creationDate FROM planninggame WHERE id = :id",
+            [
+                ":id" => $id
             ]
         );
     }

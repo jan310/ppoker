@@ -9,7 +9,7 @@
     
     <!-- Template wurde aus Bootstrap vorlagen kopiert -->
 
-    <title>Startseite</title>
+    <title>Meine erstellten Spiele</title>
 
     
 
@@ -65,58 +65,32 @@
 
 <main class="container">
   <div class="p-5 rounded">
-    <h1>Startseite</h1>
-    <p class="lead">Dies ist die Startseite unseres Planning Poker Spiels. Hier können Sie über die Navigationsleiste am oberen Rand des Bildschirms zu 
-      allen möglichen Seite dieser Website kommen. Auch können Sie durch betätigen der einzelnen Button durch die Website navigieren.
-    </p>
+      <h2>Meine erstellten Spiele</h2>
   </div>
 </main></br>
 
-<main class="container">
-  <div class="bg-light p-5 rounded">
-    <h2>Spiele erstellen</h2>
-    <p class="lead">Auf der Seite "Spiele erstellen" können Sie durch angabe eines Tasknamens, einer Taskbeschreibung und der zu einladenen Spieler ein Spiel 
-      erstellen.
-    </p>
-    <a class="btn btn-lg btn-primary" href="createGame.php" role="button">Spiele erstellen &raquo;</a>
-  </div>
-</main></br>
 
-<main class="container">
-  <div class="bg-light p-5 rounded">
-    <h2>Meine Spiele</h2>
-    <p class="lead">Unter "Meine Spiele" finden Sie alle Spiele die Sie jemals eröffnet haben, außer Sie haben diese gelöscht oder die Spiele sind bereits abgeschlossen.
-    </p>
-    <a class="btn btn-lg btn-primary" href="showMyGames.php" role="button">Meine erstellten Spiele &raquo;</a>
-  </div>
-</main></br>
 
-<main class="container">
-  <div class="bg-light p-5 rounded">
-    <h2>Beigetretene Spiele</h2>
-    <p class="lead">Auf der Seite "Beigetretene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind, außer Sie haben diese gelöscht oder diese sind bereits abgeschlossen.
-    </p>
-    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">Beigetretene Spiele &raquo;</a>
-  </div>
-</main></br>
+<?php
+    require "../classes/DBAccess.php";
+    $dbAccess = new DBAccess();
+    $array = $dbAccess->getAllCreatedGamesByUserId($_SESSION["userID"]);
 
-<main class="container">
-  <div class="bg-light p-5 rounded">
-    <h2>Abgeschlossene Spiele Spiele</h2>
-    <p class="lead">Auf der Seite "Abgeschlossene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind und bereits abgeschlossen wurden.
-    </p>
-    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">Abgeschlossene Spiele &raquo;</a>
-  </div>
-</main></br>
+    foreach($array as $game){
+        echo
+        "<div class='container bg-dark p-5 rounded'>
+         <form method='post' action='game.php'>
+         <h2 class='whiteText'>{$game['userStory']}</h2>
+         <input type='hidden' name='gameID' value='{$game["id"]}'>
+         <button type='button' class='btn btn-primary mb-3'>Spieler einladen</button>
+         <button type='submit' class='btn btn-primary mb-3'>Spiel anzeigen</button>  
+         </form>              
+         </div>
+         <br>";
+    }
 
-<main class="container">
-  <div class="bg-light p-5 rounded">
-    <h2>Einladungen</h2>
-    <p class="lead">Auf der Seite "Einladungen" werden Ihnen die Spiele angezeigt zu denen Sie eingeladen wurden. Diese können Sie annehmen oder ablehnen.
-    </p>
-    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">Einladungen &raquo;</a>
-  </div>
-</main></br>
+    
+?>
 
 
 <?php

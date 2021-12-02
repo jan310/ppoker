@@ -12,10 +12,12 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ppoker`.`planningGame` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `creatorId` INT NOT NULL,
   `userStory` VARCHAR(255) NULL,
   `description` TEXT(3000) NULL,
   `creationDate` DATE NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (creatorId) REFERENCES user(id))
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ppoker`.`participation` (

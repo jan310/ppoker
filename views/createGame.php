@@ -47,7 +47,7 @@
           <a class="nav-link active" aria-current="page" href="createGame.php">Spiele erstellen</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Meine Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showMyGames.php">Meine erstellten Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
