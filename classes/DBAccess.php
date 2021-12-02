@@ -1,9 +1,6 @@
 <?php
 require "Status.php";
 
-$c = new DBAccess();
-echo var_dump($c->acceptInvitation(5, 3));
-
 
 class DBAccess
 {
