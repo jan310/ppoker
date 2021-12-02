@@ -1,5 +1,9 @@
 <?php
-require "Status.php"
+require "Status.php";
+
+$c = new DBAccess();
+echo var_dump($c->acceptInvitation(5, 3));
+
 
 class DBAccess
 {
@@ -29,6 +33,58 @@ class DBAccess
         return password_verify($password, $hash);
     }
 
+    public function getParticipationId($userId, $gameId){
+
+        $result = $this->executeFetchOne(
+            "SELECT participationId FROM participation WHERE userId=:userId AND gameId=:gameId",
+            [
+                ":userId" => $userId,
+                ":gameId" => $gameId
+            ]
+        );
+
+        if ($result){
+            return $result["participationId"];
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public function invitationExists($userId, $gameId){
+        $result = $this->executeFetchOne(
+            "SELECT status FROM participation WHERE userId=:userId AND gameId=:gameId",
+            [
+                ":userId"=>$userId,
+                ":gameId"=>$gameId
+            ]
+        );
+
+        if ($result){
+            return $result["status"] == Status::INVITED->value;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public function acceptInvitation($userId, $gameId){
+        if ($this->invitationExists($userId, $gameId)){
+            $this->executeNoFetch(
+                "UPDATE participation SET status=:status WHERE userId=:userId AND gameId=:gameId",
+                [
+                    ":userId"=>$userId,
+                    ":gameId"=>$gameId,
+                    ":status"=>Status::JOINED->value
+                ]
+            );
+        }
+        else{
+            return false;
+        }
+    }
 
     public function inviteUserToGame($userId, $gameId){
         $this->executeNoFetch("INSERT INTO participation(userid, gameid, date, status) VALUES(:userId, :gameId, CURDATE(), :status)",
