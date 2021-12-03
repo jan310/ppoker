@@ -84,6 +84,26 @@ class DBAccess
         );
     }
 
+    public function getCardValue($gameId,$userId){
+        $cardValue = $this->executeFetchOne("SELECT card FROM participation WHERE userId = :userId AND gameId = :gameId",
+            [
+                ":userId" => $userId,
+                ":gameId" => $gameId
+            ]
+        );
+        return $cardValue['card'];
+    }
+
+    public function setCardValue($gameId,$userId,$cardValue){
+        $this->executeNoFetch("UPDATE participation SET card = :card WHERE userId = :userId AND gameId = :gameId",
+            [
+                ":card" => $cardValue,
+                ":userId" => $userId,
+                ":gameId" => $gameId
+            ]
+        );
+    }
+
     
     private function getPasswordBy($id){
         return $this->executeFetchOne("SELECT password FROM user WHERE id = :id",

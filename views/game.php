@@ -6,7 +6,10 @@ $dbAccess = new DBAccess();
 
 $id = $_REQUEST["gameID"];
 
-$game = $dbAccess->getGameById($id);
+$game = $dbAccess->getGameById($id); //evtl zu gameInfos bzw gameArray nennen
+
+$cardValue = $dbAccess->getCardValue($id,$_SESSION['userID']);
+
 ?>
 
 <!doctype html>
@@ -19,7 +22,7 @@ $game = $dbAccess->getGameById($id);
     
     <!-- Template wurde aus Bootstrap vorlagen kopiert -->
 
-    <title>Meine erstellten Spiele</title>
+    <title>GameInterface</title>
 
     
 
@@ -74,15 +77,39 @@ $game = $dbAccess->getGameById($id);
 </nav>
 
 <main class="container">
-  <div class="p-5 rounded">
-      <h2><?php echo $game['userStory']; ?></h2>
+  <div class="bg-dark p-5 rounded whiteText">
+      <h2><?php echo $game['userStory']; ?></h2><br>
+      <h3>Beschreibung der Aufgabe:</h3>
+      <p><?php echo $game['description']; ?></p><br>
+
+      <form method="post" action="game.php" id="form">
+      <label for="storyPoints">Wahle deine StoryPoints</label>
+        <select class="form-select" name="storyPoints" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="3">5</option>
+          <option value="3">8</option>
+          <option value="3">13</option>
+          <option value="3">21</option>
+          <option value="3">34</option>
+          <option value="3">55</option>
+          <option value="3">89</option>
+        </select>
+        <input type='hidden' name='gameID' value='$id'>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Auswahl bestätigen</button>
+      </form>
   </div>
 </main></br>
 
 
 <?php
 
-
+     if(isset($_REQUEST['storyPoints'])){
+      $storyPoints = htmlspecialchars($_REQUEST['storyPoints']);
+      $dbAccess->setCardValue($id,$_SESSION['userID'],$storyPoints);
+      echo"<script>document.getElementById['form'].style.display = 'none'</script>";
+     }
 // mit $_SESSION["variablenname"] können die Sessionvariablen aufgerufen werden
 // echo $_SESSION["userEmail"];
 // echo $_SESSION["userID"];
