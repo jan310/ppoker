@@ -104,6 +104,15 @@ class DBAccess
         );
     }
 
+    public function getAllParticipationsByGameId($gameId){
+        $array = $this->executeFetchAll("SELECT userId, gameId, card FROM participation WHERE gameId = :gameId", [":gameId" => $gameId]);
+        return $array;
+    }
+
+    public function getUserInformationByUserId($userId){
+        return $this->executeFetchOne("SELECT firstName, lastName, email FROM user WHERE id = :id", [":id" => $userId]);
+    }
+
     
     private function getPasswordBy($id){
         return $this->executeFetchOne("SELECT password FROM user WHERE id = :id",

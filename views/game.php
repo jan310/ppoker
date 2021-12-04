@@ -106,6 +106,15 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
         <input type='hidden' name='gameID' value='" . $gameId . "'>
         <button class='w-100 btn btn-lg btn-primary' type='submit'>Auswahl bestätigen</button>
       </form>";
+      }else{
+        $array = $dbAccess->getAllParticipationsByGameId($gameId);
+
+        foreach($array as $entry){
+          
+          $userInfo = $dbAccess->getUserInformationByUserId($entry['userId']);
+          echo"<p>{$userInfo['firstName']} {$userInfo['lastName']}, hat folgende Anzahl Story Points gewählt: &emsp; {$entry['card']}</p></br>";
+
+        }  
       }
       ?>
 
