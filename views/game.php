@@ -1,14 +1,19 @@
 <?php session_start() ?>
 
 <?php
+
 require "../classes/DBAccess.php";
 $dbAccess = new DBAccess();
 
-$id = $_REQUEST["gameID"];
+$gameId = $_REQUEST["gameID"];
+$game = $dbAccess->getGameById($gameId); //evtl zu gameInfos bzw gameArray nennen
 
-$game = $dbAccess->getGameById($id); //evtl zu gameInfos bzw gameArray nennen
+if(isset($_REQUEST['storyPoints'])){
+    $storyPoints = htmlspecialchars($_REQUEST['storyPoints']);
+    $dbAccess->setCardValue($gameId,$_SESSION['userID'],$storyPoints);
+}
 
-$cardValue = $dbAccess->getCardValue($id,$_SESSION['userID']);
+$cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
 
 ?>
 
@@ -82,34 +87,34 @@ $cardValue = $dbAccess->getCardValue($id,$_SESSION['userID']);
       <h3>Beschreibung der Aufgabe:</h3>
       <p><?php echo $game['description']; ?></p><br>
 
-      <form method="post" action="game.php" id="form">
-      <label for="storyPoints">Wahle deine StoryPoints</label>
-        <select class="form-select" name="storyPoints" required>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="3">5</option>
-          <option value="3">8</option>
-          <option value="3">13</option>
-          <option value="3">21</option>
-          <option value="3">34</option>
-          <option value="3">55</option>
-          <option value="3">89</option>
+      <?php
+      if ($cardValue == "0") {
+          echo "<form method='post' action='game.php' id='form'>
+      <label for='storyPoints'>Wahle deine StoryPoints</label>
+        <select class='form-select' name='storyPoints' required>
+          <option value='1'>1</option>
+          <option value='2'>2</option>
+          <option value='3'>3</option>
+          <option value='5'>5</option>
+          <option value='8'>8</option>
+          <option value='13'>13</option>
+          <option value='21'>21</option>
+          <option value='34'>34</option>
+          <option value='55'>55</option>
+          <option value='89'>89</option>
         </select>
-        <input type='hidden' name='gameID' value='$id'>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Auswahl bestätigen</button>
-      </form>
+        <input type='hidden' name='gameID' value='" . $gameId . "'>
+        <button class='w-100 btn btn-lg btn-primary' type='submit'>Auswahl bestätigen</button>
+      </form>";
+      }
+      ?>
+
   </div>
 </main></br>
 
 
 <?php
 
-     if(isset($_REQUEST['storyPoints'])){
-      $storyPoints = htmlspecialchars($_REQUEST['storyPoints']);
-      $dbAccess->setCardValue($id,$_SESSION['userID'],$storyPoints);
-      echo"<script>document.getElementById['form'].style.display = 'none'</script>";
-     }
 // mit $_SESSION["variablenname"] können die Sessionvariablen aufgerufen werden
 // echo $_SESSION["userEmail"];
 // echo $_SESSION["userID"];
