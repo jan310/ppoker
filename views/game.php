@@ -77,6 +77,7 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
           <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
         </li>
       </ul>
+      <button type="button" class="btn btn-primary" onclick="window.location.href='signin.php'">Abmelden</button>
     </div>
   </div>
 </nav>
