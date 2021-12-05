@@ -9,7 +9,7 @@
     
     <!-- Template wurde aus Bootstrap vorlagen kopiert -->
 
-    <title>Meine erstellten Spiele</title>
+    <title>Abgeschlossene Spiele</title>
 
     
 
@@ -65,7 +65,7 @@
 
 <main class="container">
   <div class="p-5 rounded">
-      <h2>Meine erstellten Spiele</h2>
+      <h2>Abgeschlossene Spiele</h2>
   </div>
 </main></br>
 
@@ -75,35 +75,17 @@
     require "../classes/DBAccess.php";
     $dbAccess = new DBAccess();
 
-    if (isset($_REQUEST['gameID'])) $dbAccess->setGameFinishedByGameId($_REQUEST['gameID']);
-
-    $array = $dbAccess->getAllCreatedNotFinishedGamesByUserId(htmlspecialchars($_SESSION["userID"]));
+    $array = $dbAccess->getAllFinishedGames();
 
     foreach($array as $game){
         echo
         "<div class='container bg-dark p-5 rounded'>
-    <h2 class='whiteText'>" . $game['userStory'] . "</h2>
-    <div class='row'>
-        <div class='col-sm'>
+            <h2 class='whiteText'>" . $game['userStory'] . "</h2>
             <form method='post' action='game.php'>
                 <input type='hidden' name='gameID' value='" . $game['id'] . "'>
-                <button type='submit' class='btn btn-primary mb-3'>Spiel anzeigen</button>
+                <button type='submit' class='btn btn-primary mb-3'>Ergebnisse anzeigen</button>
             </form>
-        </div>
-        <div class='col-sm'>
-            <form method='post' action='james.php'>
-                <input type='hidden' name='gameID' value='" . $game['id'] . "'>
-                <button type='submit' class='btn btn-primary mb-3'>Spieler einladen</button>
-            </form>
-        </div>
-        <div class='col-sm'>
-            <form method='post' action='showMyGames.php'>
-                <input type='hidden' name='gameID' value='" . $game['id'] . "'>
-                <button type='submit' class='btn btn-primary mb-3'>Spiel beenden</button>
-            </form>
-        </div>
-    </div>
-</div>";
+        </div>";
     }
 
     

@@ -53,7 +53,7 @@
           <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Abgeschlossene Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
@@ -96,7 +96,7 @@
     <h2>Beigetretene Spiele</h2>
     <p class="lead">Auf der Seite "Beigetretene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind, außer Sie haben diese gelöscht oder diese sind bereits abgeschlossen.
     </p>
-    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">Beigetretene Spiele &raquo;</a>
+    <a class="btn btn-lg btn-primary" href="" role="button">Beigetretene Spiele &raquo;</a>
   </div>
 </main></br>
 
@@ -105,7 +105,7 @@
     <h2>Abgeschlossene Spiele Spiele</h2>
     <p class="lead">Auf der Seite "Abgeschlossene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind und bereits abgeschlossen wurden.
     </p>
-    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">Abgeschlossene Spiele &raquo;</a>
+    <a class="btn btn-lg btn-primary" href="showFinishedGames.php" role="button">Abgeschlossene Spiele &raquo;</a>
   </div>
 </main></br>
 
@@ -114,7 +114,7 @@
     <h2>Einladungen</h2>
     <p class="lead">Auf der Seite "Einladungen" werden Ihnen die Spiele angezeigt zu denen Sie eingeladen wurden. Diese können Sie annehmen oder ablehnen.
     </p>
-    <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">Einladungen &raquo;</a>
+    <a class="btn btn-lg btn-primary" href="" role="button">Einladungen &raquo;</a>
   </div>
 </main></br>
 

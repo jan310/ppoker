@@ -54,7 +54,7 @@ class DBAccess
     }
 
     public function createPlanningGame($taskName, $taskDescription, $userID) {
-        $this->executeNoFetch("INSERT INTO planninggame(creatorId, userStory, description, creationDate) VALUES(:creatorId, :userStory, :description, CURDATE())",
+        $this->executeNoFetch("INSERT INTO planninggame(creatorId, userStory, description, creationDate, finished) VALUES(:creatorId, :userStory, :description, CURDATE(), 0)",
             [
                 ":creatorId" => $userID,
                 ":userStory" => $taskName,
@@ -71,9 +71,18 @@ class DBAccess
         );
     }
 
-    public function getAllCreatedGamesByUserId($userID){
-        $array = $this->executeFetchAll("SELECT id, userStory FROM planninggame WHERE creatorId = :userID", [":userID" => $userID]);
+    public function getAllCreatedNotFinishedGamesByUserId($userID){
+        $array = $this->executeFetchAll("SELECT id, userStory FROM planninggame WHERE creatorId = :userID AND finished = 0", [":userID" => $userID]);
         return $array;
+    }
+
+    public function getAllFinishedGames() {
+        $array = $this->executeFetchAll("SELECT id, creatorId, userStory, description, creationDate FROM planninggame WHERE finished = 1", []);
+        return $array;
+    }
+
+    public function setGameFinishedByGameId($gameID) {
+        $this->executeNoFetch("UPDATE planninggame SET finished = 1 WHERE id = :gameID", [":gameID" => $gameID]);
     }
 
     public function getGameById($id) {
@@ -82,6 +91,16 @@ class DBAccess
                 ":id" => $id
             ]
         );
+    }
+
+    public function isGameFinishedById($id) {
+        $finished = $this->executeFetchOne("SELECT finished FROM planninggame WHERE id = :id", [":id" => $id]);
+        return $finished["finished"];
+    }
+
+    public function getAllCardValuesByGameId($id) {
+        $cardValues = $this->executeFetchAll("SELECT card FROM participation WHERE gameId = :id", [":id" => $id]);
+        return $cardValues;
     }
 
     public function getCardValue($gameId,$userId){

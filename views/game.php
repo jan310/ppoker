@@ -5,7 +5,7 @@
 require "../classes/DBAccess.php";
 $dbAccess = new DBAccess();
 
-$gameId = $_REQUEST["gameID"];
+$gameId = htmlspecialchars($_REQUEST["gameID"]);
 $game = $dbAccess->getGameById($gameId); //evtl zu gameInfos bzw gameArray nennen
 
 if(isset($_REQUEST['storyPoints'])){
@@ -71,7 +71,7 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
           <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Abgeschlossene Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
@@ -106,7 +106,8 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
         <input type='hidden' name='gameID' value='" . $gameId . "'>
         <button class='w-100 btn btn-lg btn-primary' type='submit'>Auswahl bestätigen</button>
       </form>";
-      }else{
+      }
+      else{
         $array = $dbAccess->getAllParticipationsByGameId($gameId);
 
         echo '<table class="table whiteText">
@@ -134,6 +135,19 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
         
         echo'  </tbody>
             </table>';
+      }
+
+      if ($dbAccess->isGameFinishedById($gameId)) {
+          $cardValues = $dbAccess->getAllCardValuesByGameId($gameId);
+          $sum = 0;
+
+          foreach ($cardValues as $card) {
+              $sum += intval($card["card"]);
+          }
+
+          $average = $sum / count($cardValues);
+
+          echo "<br><p>Durchschnittliche StoryPoints: $average</p>";
       }
       ?>
 
