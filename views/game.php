@@ -84,7 +84,7 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
 <main class="container">
   <div class="bg-dark p-5 rounded whiteText">
       <h2><?php echo $game['userStory']; ?></h2><br>
-      <h3>Beschreibung der Aufgabe:</h3>
+      
       <p><?php echo $game['description']; ?></p><br>
 
       <?php
@@ -109,12 +109,31 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
       }else{
         $array = $dbAccess->getAllParticipationsByGameId($gameId);
 
+        echo '<table class="table whiteText">
+                <thead>
+                  <tr>
+                    <th scope="col">Vorame</th>
+                    <th scope="col">Nachname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Story Points</th>
+                  </tr>
+                </thead>
+                <tbody>';
+
         foreach($array as $entry){
           
           $userInfo = $dbAccess->getUserInformationByUserId($entry['userId']);
-          echo"<p>{$userInfo['firstName']} {$userInfo['lastName']}, hat folgende Anzahl Story Points gewählt: &emsp; {$entry['card']}</p></br>";
 
-        }  
+          echo '<tr>
+                  <td>' . $userInfo["firstName"] . '</td>
+                  <td>' . $userInfo["lastName"] . '</td>
+                  <td>' . $userInfo["email"] . '</td>
+                  <td>' . $entry["card"] . '</td>
+                </tr>';
+        }
+        
+        echo'  </tbody>
+            </table>';
       }
       ?>
 
