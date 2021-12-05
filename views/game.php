@@ -1,12 +1,20 @@
 <?php session_start() ?>
 
 <?php
+
 require "../classes/DBAccess.php";
 $dbAccess = new DBAccess();
 
-$id = $_REQUEST["gameID"];
+$gameId = htmlspecialchars($_REQUEST["gameID"]);
+$game = $dbAccess->getGameById($gameId); //evtl zu gameInfos bzw gameArray nennen
 
-$game = $dbAccess->getGameById($id);
+if(isset($_REQUEST['storyPoints'])){
+    $storyPoints = htmlspecialchars($_REQUEST['storyPoints']);
+    $dbAccess->setCardValue($gameId,$_SESSION['userID'],$storyPoints);
+}
+
+$cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
+
 ?>
 
 <!doctype html>
@@ -19,7 +27,7 @@ $game = $dbAccess->getGameById($id);
     
     <!-- Template wurde aus Bootstrap vorlagen kopiert -->
 
-    <title>Meine erstellten Spiele</title>
+    <title>GameInterface</title>
 
     
 
@@ -63,7 +71,7 @@ $game = $dbAccess->getGameById($id);
           <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Abgeschlossene Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
@@ -74,14 +82,80 @@ $game = $dbAccess->getGameById($id);
 </nav>
 
 <main class="container">
-  <div class="p-5 rounded">
-      <h2><?php echo $game['userStory']; ?></h2>
+  <div class="bg-dark p-5 rounded whiteText">
+      <h2><?php echo $game['userStory']; ?></h2><br>
+      
+      <p><?php echo $game['description']; ?></p><br>
+
+      <?php
+      if ($cardValue == "0") {
+          echo "<form method='post' action='game.php' id='form'>
+      <label for='storyPoints'>Wahle deine StoryPoints</label>
+        <select class='form-select' name='storyPoints' required>
+          <option value='1'>1</option>
+          <option value='2'>2</option>
+          <option value='3'>3</option>
+          <option value='5'>5</option>
+          <option value='8'>8</option>
+          <option value='13'>13</option>
+          <option value='21'>21</option>
+          <option value='34'>34</option>
+          <option value='55'>55</option>
+          <option value='89'>89</option>
+        </select>
+        <input type='hidden' name='gameID' value='" . $gameId . "'>
+        <button class='w-100 btn btn-lg btn-primary' type='submit'>Auswahl bestätigen</button>
+      </form>";
+      }
+      else{
+        $array = $dbAccess->getAllParticipationsByGameId($gameId);
+
+        echo '<table class="table whiteText">
+                <thead>
+                  <tr>
+                    <th scope="col">Vorame</th>
+                    <th scope="col">Nachname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Story Points</th>
+                  </tr>
+                </thead>
+                <tbody>';
+
+        foreach($array as $entry){
+          
+          $userInfo = $dbAccess->getUserInformationByUserId($entry['userId']);
+
+          echo '<tr>
+                  <td>' . $userInfo["firstName"] . '</td>
+                  <td>' . $userInfo["lastName"] . '</td>
+                  <td>' . $userInfo["email"] . '</td>
+                  <td>' . $entry["card"] . '</td>
+                </tr>';
+        }
+        
+        echo'  </tbody>
+            </table>';
+      }
+
+      if ($dbAccess->isGameFinishedById($gameId)) {
+          $cardValues = $dbAccess->getAllCardValuesByGameId($gameId);
+          $sum = 0;
+
+          foreach ($cardValues as $card) {
+              $sum += intval($card["card"]);
+          }
+
+          $average = $sum / count($cardValues);
+
+          echo "<br><p>Durchschnittliche StoryPoints: $average</p>";
+      }
+      ?>
+
   </div>
 </main></br>
 
 
 <?php
-
 
 // mit $_SESSION["variablenname"] können die Sessionvariablen aufgerufen werden
 // echo $_SESSION["userEmail"];
