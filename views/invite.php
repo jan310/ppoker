@@ -73,7 +73,7 @@
     </div>
     </nav>
 
-    <form class="search-container" method="POST" action="#">
+    <form class="search-container" method="POST" action="?">
         <input type="text" name="searchTerm" class="centered">
         <button type="submit" class="btn btn-warning centered">Search</button>
     </form>
@@ -94,10 +94,10 @@
             foreach($users as $user){
                 echo "
                 
-                <form action='?toInvite={$user['id']}' method='POST'>
+                <form action='?toInvite={$user['id']}' method='POST' class='user-container'>
                     <button type='submit' class='btn btn-secondary'>
-                        <p >{$user['firstName']}</p>
-                        <p>{$user['lastName']}</p>
+                        <p class='float-left padded'>{$user['firstName']}</p>
+                        <p class='float-right padded'>{$user['lastName']}</p>
                     </button>
                 </form>
                 
