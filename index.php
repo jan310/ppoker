@@ -22,9 +22,7 @@ if(isset($_REQUEST['action'])){
     $controller->$action($value);
 }
 
-//"Vorlagen" für Views
-require "views/Page.php";  // Eltern-Klasse "Page"
-require "views/IPage.php"; // Interface "IPage"
+
 
 // View
 if (isset($_REQUEST['page'])) {
