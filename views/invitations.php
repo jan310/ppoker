@@ -5,7 +5,7 @@
 <html lang="en">
   <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="invitations.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,80 +72,61 @@
         </div>
     </div>
     </nav>
-    <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-    <div class="card">
-        <div class="card-body">
-            <h2 class="whiteText">Spiel erstellen</h2>
+    
+    <div class="container">
+        
+        
+        <?php 
+        $dbAccess = new DBAccess();
+        $userId = 1;
+        // get correct user id
+
+        function refreshPage(){
+            header("Refresh:0; url='invitations.php'");
+        }
+
+        function acceptInvitation($gameId){
+            $dbAccess->acceptInvitation($userId, $gameId);
+            refreshPage();
+        }
+
+        function declineInvitation($gameId){
+            $dbAccess->declineInvitation($userId, $gameId);
+            refreshPage();
+        }
+
+        if (isset($_GET["declineId"])){
+            $dbAccess->declineInvitation($userId, $_GET["acceptId"]);
+            refreshPage();
+        }
+
+        if (isset($_GET["acceptId"])){
+            $dbAccess->acceptInvitation($userId, $_GET["acceptId"]);
+            refreshPage();
+        }
+
+        
+        foreach($dbAccess->getInvitations($userId) as $invitation){
+
+            echo "
             
+            <div class='box'>
+                <p class='text-container'>gameid: {$invitation['gameId']}</p>
+                <form class='button-container' method='POST' action='?acceptId={$invitation['gameId']}'>  
+                    <button class='btn btn-success' type='submit'>Accept</button>
+                </form>
+                <form class='button-container' method='POST' action='?declineId={$invitation['gameId']}'>  
+                    <button class='btn btn-danger' type='submit'>Decline</button>
+                </form> 
+
+            </div>
             
-            <?php 
-            $dbAccess = new DBAccess();
-            $userId = 5;
-
-            function refreshPage(){
-                header("Refresh:0; url='invitations.php'");
-            }
-
-            function acceptInvitation($gameId){
-                $dbAccess->acceptInvitation($userId, $gameId);
-                refreshPage();
-            }
-
-            function declineInvitation($gameId){
-                $dbAccess->declineInvitation($userId, $gameId);
-                refreshPage();
-            }
-
-            if (isset($_GET["declineId"])){
-                $dbAccess->declineInvitation($userId, $_GET["acceptId"]);
-                refreshPage();
-            }
-
-            if (isset($_GET["acceptId"])){
-                $dbAccess->acceptInvitation($userId, $_GET["acceptId"]);
-                refreshPage();
-            }
-
-            
-            foreach($dbAccess->getInvitations($userId) as $invitation){
-                   // <button type="button" onClick={$acceptInvitation($invitation['gameId'])}>Accept</button>
-                    // <button type="button" onClick={$declineInvitation($invitation['gameId'])}>Decline</button>
-
-                echo "
-                
-                <div>
-                    <p>gameid: {$invitation['gameId']}</p>
-                    <form method='POST' action='?acceptId={$invitation['gameId']}'>  
-                        <button type='submit'>Accept</button>
-                    </form>
-                    <form method='POST' action='?declineId={$invitation['gameId']}'>  
-                        <button type='submit'>Decline</button>
-                    </form> 
-
-                </div>
-                
-                ";
-            }
-            
-            ?>
-        </div>
+            ";
+        }
+        
+        ?>
     </div>
        
-
         
   </body>
   
