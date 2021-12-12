@@ -109,13 +109,19 @@ class DBAccess
     }
 
     public function inviteUserToGame($userId, $gameId){
-        $this->executeNoFetch("INSERT INTO participation(userid, gameid, date, status) VALUES(:userId, :gameId, CURDATE(), :status)",
-            [
-                ":userId"->$userId,
-                ":gameId"->$gameId,
-                ":status"->Status::INVITED->value
-            ]
-        );
+
+        if(!$this->getParticipationId($userId, $gameId)){
+            
+            $this->executeNoFetch(
+                "INSERT INTO participation(userid, gameid, date, status) VALUES(:userId, :gameId, CURDATE(), :status)",
+                [
+                    ":userId"=>$userId,
+                    ":gameId"=>$gameId,
+                    ":status"=>Status::INVITED->value
+                ]
+            );
+    
+        }
     }
     
     public function createUser($firstName, $lastName, $email, $password){
@@ -128,6 +134,16 @@ class DBAccess
                 ":password" => $hash
             ]
         );
+    }
+
+    public function searchUsersLike($searchTerm){
+        $users = $this->executeFetchAll(
+            "SELECT id, firstName, lastName, email FROM user WHERE firstName LIKE :term OR lastName LIKE :term OR email LIKE :term",
+            [
+                ":term" => "%".$searchTerm."%"
+            ]
+        );
+        return $users;
     }
     
     private function getPasswordBy($id){

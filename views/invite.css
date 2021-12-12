@@ -1,0 +1,10 @@
+.search-container{
+    align-self: center;
+    margin: auto;
+    width: max-content;
+}
+
+.centered{
+    margin: auto;
+    align-self: center;
+}
