@@ -42,8 +42,10 @@ if(!file_exists($pagePath)){
     $page="signin";
 }
 
-require $pagePath;
-$view=new $page($controller, $model);
+header("refresh:0; url='$pagePath'");
+
+// require $pagePath;
+// $view=new $page($controller, $model);
 
 //if (isset($_REQUEST['page']) && $_REQUEST['page']=="Sonderangebot"){
  //   require "views/Sonderangebot.php";
@@ -55,4 +57,4 @@ $view=new $page($controller, $model);
 //}
 
 // Ausgabe
-echo $view->output();
+// echo $view->output();
