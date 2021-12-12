@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `ppoker`.`planningGame` (
   `userStory` VARCHAR(255) NULL,
   `description` TEXT(3000) NULL,
   `creationDate` DATE NULL,
+  `finished` BOOLEAN NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (creatorId) REFERENCES user(id))
 ENGINE = InnoDB;

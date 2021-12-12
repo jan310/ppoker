@@ -53,12 +53,13 @@
           <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Abgeschlossene Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
         </li>
       </ul>
+      <button type="button" class="btn btn-primary" onclick="window.location.href='signin.php'">Abmelden</button>
     </div>
   </div>
 </nav>
