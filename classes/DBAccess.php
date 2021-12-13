@@ -59,15 +59,16 @@ class DBAccess
             [
                 ":creatorId" => $userID,
                 ":userStory" => $taskName,
-                "description" => $taskDescription
+                ":description" => $taskDescription
             ]
         );
         $gameID = $this->conn->lastInsertId();
         
-        $this->executeNoFetch("INSERT INTO participation(userId, gameId, card, date) VALUES(:userId, :gameId, 0, CURDATE())",
+        $this->executeNoFetch("INSERT INTO participation(userId, gameId, card, date, status) VALUES(:userId, :gameId, 0, CURDATE(), :status)",
             [
                 ":userId" => $userID,
-                ":gameId" => $gameID
+                ":gameId" => $gameID,
+                ":status" => Status::HOST->value
             ]
         );
     }
@@ -161,7 +162,7 @@ class DBAccess
 
     public function getInvitations($userId){
         return $this->executeFetchAll(
-            "SELECT * FROM participation WHERE userId=:userId AND status=:status",
+            "SELECT * FROM participation, planninggame WHERE userId=:userId AND participation.gameId = planninggame.id AND status=:status",
             [
                 ":userId"=>$userId,
                 ":status"=>Status::INVITED->value

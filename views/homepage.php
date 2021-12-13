@@ -56,7 +56,7 @@
           <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
+          <a class="nav-link active" aria-current="page" href="showInvitations.php">Einladungen</a>
         </li>
       </ul>
         <button type="button" class="btn btn-primary" onclick="window.location.href='signin.php'">Abmelden</button>
@@ -115,7 +115,7 @@
     <h2>Einladungen</h2>
     <p class="lead">Auf der Seite "Einladungen" werden Ihnen die Spiele angezeigt zu denen Sie eingeladen wurden. Diese können Sie annehmen oder ablehnen.
     </p>
-    <a class="btn btn-lg btn-primary" href="" role="button">Einladungen &raquo;</a>
+    <a class="btn btn-lg btn-primary" href="showInvitations.php" role="button">Einladungen &raquo;</a>
   </div>
 </main></br>
 
