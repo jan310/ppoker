@@ -42,17 +42,3 @@ if(!file_exists($pagePath)){
 
 header("refresh:0; url='$pagePath'");
 
-// require $pagePath;
-// $view=new $page($controller, $model);
-
-//if (isset($_REQUEST['page']) && $_REQUEST['page']=="Sonderangebot"){
- //   require "views/Sonderangebot.php";
-  //  $view = new Sonderangebot($controller, $model);
-//}
-//else{
- //   require "views/Startseite.php";
- //   $view = new Startseite($controller, $model);
-//}
-
-// Ausgabe
-// echo $view->output();
