@@ -89,7 +89,8 @@
         <input type='hidden' name='gameID' value='" . $game['id'] . "'>
         <button type='submit' class='btn btn-primary mb-3'>Ergebnisse anzeigen</button>
         </form>
-        </div>";
+        </div>
+        <br>";
       }
     }
       
