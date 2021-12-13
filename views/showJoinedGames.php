@@ -9,7 +9,7 @@
     
     <!-- Template wurde aus Bootstrap vorlagen kopiert -->
 
-    <title>Abgeschlossene Spiele</title>
+    <title>Meine erstellten Spiele</title>
 
     
 
@@ -27,6 +27,11 @@
           font-size: 3.5rem;
         }
       }
+
+      .padded{
+        padding: 10px;
+      }
+
     </style>
 
     
@@ -66,7 +71,7 @@
 
 <main class="container">
   <div class="p-5 rounded">
-      <h2>Abgeschlossene Spiele</h2>
+      <h2>Beigetretene Spiele</h2>
   </div>
 </main></br>
 
@@ -76,26 +81,26 @@
     require "../classes/DBAccess.php";
     $dbAccess = new DBAccess();
 
-    if (isset($_SESSION["userID"])){
+    $array = $dbAccess->getJoinedGames(htmlspecialchars($_SESSION["userID"]));
 
-      $userId = $_SESSION["userID"];
-      $array = $dbAccess->getAllFinishedGames($userId);
-      
-      foreach($array as $game){
+    foreach($array as $game){
         echo
         "<div class='container bg-dark p-5 rounded'>
-        <h2 class='whiteText'>" . $game['userStory'] . "</h2>
-        <form method='post' action='game.php'>
-        <input type='hidden' name='gameID' value='" . $game['id'] . "'>
-        <button type='submit' class='btn btn-primary mb-3'>Ergebnisse anzeigen</button>
-        </form>
-        </div>";
-      }
+    <h2 class='whiteText'>" . $game['userStory'] . "</h2>
+    <div class='row'>
+        <div class='col-sm'>
+            <form method='post' action='game.php'>
+                <input type='hidden' name='gameID' value='" . $game['id'] . "'>
+                <button type='submit' class='btn btn-primary mb-3'>Spiel Anzeigen</button>
+            </form>
+        </div>
+    </div>
+</div>
+<br>";
     }
-      
+
     
 ?>
-
 
       
   </body>

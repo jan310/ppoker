@@ -156,14 +156,6 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
 </main></br>
 
 
-<?php
-
-// mit $_SESSION["variablenname"] können die Sessionvariablen aufgerufen werden
-// echo $_SESSION["userEmail"];
-// echo $_SESSION["userID"];
-
-?>
-
       
   </body>
 </html>

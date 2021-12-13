@@ -78,8 +78,10 @@ class DBAccess
         return $array;
     }
 
-    public function getAllFinishedGames() {
-        $array = $this->executeFetchAll("SELECT id, creatorId, userStory, description, creationDate FROM planninggame WHERE finished = 1", []);
+    public function getAllFinishedGames($userId) {
+        $array = $this->executeFetchAll("SELECT planninggame.id, planninggame.creatorId, planninggame.userStory, planninggame.description, planninggame.creationDate FROM planninggame, participation WHERE planninggame.id = participation.gameId AND planninggame.finished = 1 AND participation.userId = :userId", [
+            ":userId" => $userId
+        ]);
         return $array;
     }
 
@@ -240,7 +242,7 @@ class DBAccess
 
     public function getJoinedGames($userId){
         $games = $this->executeFetchAll(
-            "SELECT planninggame.userstory, planninggame.id FROM planninggame, participation WHERE planninggame.id = participation.gameId AND participation.userid = :userId AND participation.status = :joined",
+            "SELECT planninggame.userStory, planninggame.id FROM planninggame, participation WHERE planninggame.id = participation.gameId AND participation.userid = :userId AND participation.status = :joined",
             [
                 ":userId" => $userId,
                 ":joined" => Status::JOINED->value
