@@ -1,0 +1,32 @@
+
+.user-container{
+    width: max-content;
+    align-self: center;
+    margin: auto;
+    padding: 10px;
+    font-size: 150%;
+}
+
+.search-container{
+    align-self: center;
+    margin: auto;
+    width: max-content;
+}
+
+.centered{
+    margin: auto;
+    align-self: center;
+}
+
+.float-right{
+    float: right;
+}
+
+.float-left{
+    float: left;
+}
+
+.padded{
+    padding-left: 5px;
+    padding-right: 5px;
+}
