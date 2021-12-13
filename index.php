@@ -1,27 +1,16 @@
-<?php 
-// Daten-"Model"
-require "classes/PPokerData.php";
-$model = new PPokerData();
 
-// Shop-"Controller"
-require "classes/PPokerActions.php";
-$controller = new PPokerActions($model);
+<!-- 
+  
+  Leitet an homepage weiter
+  Wenn page attribut gesetzt ist, und die Seite in Views existiert, wird an die Seite weitergeleitet
+
+-->
+
+<?php 
 
 //Datenbank Controller
 require "classes/DBAccess.php";
 $dbAccess = new DBAccess();
-
-if(isset($_REQUEST['action'])){
-    $action=$_REQUEST['action'];
-    if(isset($_REQUEST['actionValue'])){
-        $value=$_REQUEST['actionValue'];
-    }else{
-        $value="";
-    }
-
-    $controller->$action($value);
-}
-
 
 
 // View

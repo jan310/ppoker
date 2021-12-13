@@ -1,3 +1,11 @@
+
+<!-- 
+  
+  Übersicht aller Möglichen Seiten der Anwendung
+  Verlinkt alle Seiten
+
+-->
+
 <?php session_start() ?>
 <!doctype html>
 <html lang="en">

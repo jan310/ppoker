@@ -1,3 +1,10 @@
+<!-- 
+  
+  Story point auswählen Funktion
+  Graphische Anzeige eines Spiels (Story point Tabelle)
+
+-->
+
 <?php session_start() ?>
 
 <?php

@@ -1,3 +1,10 @@
+<!-- 
+  
+  Erstellt ein Planningp Spiel
+  Erstellt gleichzeitig einen Eintrag in Participation Tabelle in der Datenbank (als Host)
+
+-->
+
 <?php session_start() ?>
 <!doctype html>
 <html lang="en">

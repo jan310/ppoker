@@ -1,3 +1,10 @@
+
+<!-- 
+  
+  Datenbank zugriff klasse
+
+-->
+
 <?php
 
 require "Status.php";

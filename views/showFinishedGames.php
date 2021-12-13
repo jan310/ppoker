@@ -1,3 +1,9 @@
+<!-- 
+  
+  Alle bendeten Spiele eines angemeldeten Nutzers werden angezeigt
+
+-->
+
 <?php session_start() ?>
 <!doctype html>
 <html lang="en">

@@ -1,5 +1,10 @@
 
-   
+<!-- 
+  
+  Bietet Suche nach Usern (zum Einladen) an
+  Wenn man auf ein User klickt und er noch nicht Host oder Teilnehmer ist, wird er eingeladen 
+
+-->
 
 <!doctype html>
 <html lang="en">

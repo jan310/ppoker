@@ -1,3 +1,10 @@
+
+<!-- 
+  
+  Zeigt alle Spieler, wo der User Teilnehmer ist (nicht Host)  
+
+-->
+
 <?php session_start() ?>
 <!doctype html>
 <html lang="en">

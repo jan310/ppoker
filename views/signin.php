@@ -1,3 +1,10 @@
+
+<!-- 
+  
+  Nutzer kann sich anmelden
+
+-->
+
 <?php session_start();
   session_unset();
 ?>

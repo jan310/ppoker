@@ -1,3 +1,11 @@
+
+<!-- 
+  
+  Zeigt alle Einladungen des Nutzers an
+  Man kann annehmen oder ablehnen
+
+-->
+
 <?php session_start() ?>
 <!doctype html>
 <html lang="en">
