@@ -81,7 +81,7 @@
 
 
         if(isset($_REQUEST["gameID"])){
-          $gameId = $_REQUEST["gameID"];
+          $gameId = htmlspecialchars($_REQUEST["gameID"]);
 
 
           echo "
@@ -97,12 +97,12 @@
           
           // Get correct Game id
           if (isset($_REQUEST["toInvite"])){
-            $userId = intval($_REQUEST["toInvite"]);
+            $userId = intval(htmlspecialchars($_REQUEST["toInvite"]));
             $db->inviteUserToGame($userId, $gameId);
           }
           
           if (isset($_REQUEST["searchTerm"])){
-            $term = $_REQUEST["searchTerm"];
+            $term = htmlspecialchars($_REQUEST["searchTerm"]);
             
             $users = $db->searchUsersLike($term);
             foreach($users as $user){

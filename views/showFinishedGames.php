@@ -78,7 +78,7 @@
 
     if (isset($_SESSION["userID"])){
 
-      $userId = $_SESSION["userID"];
+      $userId = htmlspecialchars($_SESSION["userID"]);
       $array = $dbAccess->getAllFinishedGames($userId);
       
       foreach($array as $game){

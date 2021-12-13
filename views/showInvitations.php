@@ -79,7 +79,7 @@
     if (isset($_SESSION["userID"])){
 
       
-      $userId = $_SESSION["userID"];
+      $userId = htmlspecialchars($_SESSION["userID"]);
       
       function refreshPage(){
         header("Refresh:0; url='showInvitations.php'");
@@ -96,12 +96,12 @@
       }
       
       if (isset($_POST["declineId"])){
-        $dbAccess->declineInvitation($userId, $_POST["declineId"]);
+        $dbAccess->declineInvitation($userId, htmlspecialchars($_POST["declineId"]));
         refreshPage();
       }
       
       if (isset($_POST["acceptId"])){
-        $dbAccess->acceptInvitation($userId, $_POST["acceptId"]);
+        $dbAccess->acceptInvitation($userId, htmlspecialchars($_POST["acceptId"]));
         refreshPage();
       }
 
@@ -129,19 +129,6 @@
     }
       
   ?>
-
-
-
-
-<?php
-
-
-// mit $_SESSION["variablenname"] können die Sessionvariablen aufgerufen werden
-// echo $_SESSION["userEmail"];
-// echo $_SESSION["userID"];
-
-?>
-
       
   </body>
 </html>
