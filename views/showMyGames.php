@@ -92,7 +92,7 @@
             </form>
         </div>
         <div class='col-sm'>
-            <form method='post' action='james.php'>
+            <form method='post' action='invite.php'>
                 <input type='hidden' name='gameID' value='" . $game['id'] . "'>
                 <button type='submit' class='btn btn-primary mb-3'>Spieler einladen</button>
             </form>

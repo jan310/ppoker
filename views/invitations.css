@@ -1,0 +1,27 @@
+
+
+.box{
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 150%; 
+    align-self: center;
+    margin: auto;
+}
+
+.container{
+    align-self: center;
+    margin: auto;
+    width: 85%;
+}
+
+.button-container{
+    width: max-content;
+    align-self: center;
+    margin: auto;
+}
+
+.text-container{
+    width: max-content;
+}
