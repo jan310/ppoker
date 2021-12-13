@@ -78,7 +78,6 @@
     <?php
         $db = new DBAccess();
 
-        echo var_dump($_REQUEST);
 
         if(isset($_REQUEST["gameID"])){
           $gameId = $_REQUEST["gameID"];
@@ -105,7 +104,6 @@
             $term = $_REQUEST["searchTerm"];
             
             $users = $db->searchUsersLike($term);
-            echo var_dump($users);
             foreach($users as $user){
               echo "
               
@@ -114,8 +112,9 @@
               <input type='hidden' name='toInvite' value='" . $user['id'] . "'>
               <input type='hidden' name='gameID' value='" . $gameId . "'>
               <p class='float-left padded'>{$user['firstName']}</p>
-              <p class='float-right padded'>{$user['lastName']}</p>
               <p class='float-right padded'>{$user['email']}</p>
+              <p class='float-right padded'>{$user['lastName']}</p>
+              
               </button>
               </form>
               

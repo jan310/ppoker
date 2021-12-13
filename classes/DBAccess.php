@@ -1,5 +1,6 @@
 <?php
 
+require "Status.php";
 
 class DBAccess
 {
@@ -132,6 +133,120 @@ class DBAccess
         return $this->executeFetchOne("SELECT firstName, lastName, email FROM user WHERE id = :id", [":id" => $userId]);
     }
 
+    public function searchUsersLike($searchTerm){
+        $users = $this->executeFetchAll(
+            "SELECT id, firstName, lastName, email FROM user WHERE firstName LIKE :term OR lastName LIKE :term OR email LIKE :term",
+            [
+                ":term" => "%".$searchTerm."%"
+            ]
+        );
+        return $users;
+    }
+
+    public function inviteUserToGame($userId, $gameId){
+
+        if(!$this->getParticipationId($userId, $gameId)){
+            
+            $this->executeNoFetch(
+                "INSERT INTO participation(userid, gameid, date, status) VALUES(:userId, :gameId, CURDATE(), :status)",
+                [
+                    ":userId"=>$userId,
+                    ":gameId"=>$gameId,
+                    ":status"=>Status::INVITED->value
+                ]
+            );
+    
+        }
+    }
+
+    public function getInvitations($userId){
+        return $this->executeFetchAll(
+            "SELECT * FROM participation WHERE userId=:userId AND status=:status",
+            [
+                ":userId"=>$userId,
+                ":status"=>Status::INVITED->value
+            ]
+        );
+    }
+
+    public function invitationExists($userId, $gameId){
+        $result = $this->executeFetchOne(
+            "SELECT status FROM participation WHERE userId=:userId AND gameId=:gameId",
+            [
+                ":userId"=>$userId,
+                ":gameId"=>$gameId
+            ]
+        );
+
+        if ($result){
+            return $result["status"] == Status::INVITED->value;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public function acceptInvitation($userId, $gameId){
+        if ($this->invitationExists($userId, $gameId)){
+            $this->executeNoFetch(
+                "UPDATE participation SET status=:status WHERE userId=:userId AND gameId=:gameId",
+                [
+                    ":userId"=>$userId,
+                    ":gameId"=>$gameId,
+                    ":status"=>Status::JOINED->value
+                ]
+            );
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function getParticipationId($userId, $gameId){
+
+        $result = $this->executeFetchOne(
+            "SELECT participationId FROM participation WHERE userId=:userId AND gameId=:gameId",
+            [
+                ":userId" => $userId,
+                ":gameId" => $gameId
+            ]
+        );
+
+        if ($result){
+            return $result["participationId"];
+        }
+        else{
+            return false;
+        }
+
+    }
+    
+    public function declineInvitation($userId, $gameId){
+        if ($this->invitationExists($userId, $gameId)){
+            $this->executeNoFetch(
+                "DELETE FROM participation WHERE userId=:userId AND gameId=:gameId",
+                [
+                    ":userId"=>$userId,
+                    ":gameId"=>$gameId
+                ]
+            );
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function getJoinedGames($userId){
+        $games = $this->executeFetchAll(
+            "SELECT planninggame.userstory, planninggame.id FROM planninggame, participation WHERE planninggame.id = participation.gameId AND participation.userid = :userId AND participation.status = :joined",
+            [
+                ":userId" => $userId,
+                ":joined" => Status::JOINED->value
+            ]
+        );
+        return $games;
+    }
     
     private function getPasswordBy($id){
         return $this->executeFetchOne("SELECT password FROM user WHERE id = :id",
