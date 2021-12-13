@@ -68,13 +68,13 @@ $cardValue = $dbAccess->getCardValue($gameId,$_SESSION['userID']);
           <a class="nav-link active" aria-current="page" href="showMyGames.php">Meine erstellten Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showJoinedGames.php">Beigetretene Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
+          <a class="nav-link active" aria-current="page" href="showInvitations.php">Einladungen</a>
         </li>
       </ul>
       <button type="button" class="btn btn-primary" onclick="window.location.href='signin.php'">Abmelden</button>

@@ -50,13 +50,13 @@
           <a class="nav-link active" aria-current="page" href="showMyGames.php">Meine erstellten Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showJoinedGames.php">Beigetretene Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
+          <a class="nav-link active" aria-current="page" href="showJoinedGames.php">Einladungen</a>
         </li>
       </ul>
       <button type="button" class="btn btn-primary" onclick="window.location.href='signin.php'">Abmelden</button>
@@ -93,17 +93,6 @@
         $dbAccess->createPlanningGame($taskName, $taskDescription, $_SESSION["userID"]);
     }
 ?>
-
-
-<?php
-
-
-// mit $_SESSION["variablenname"] können die Sessionvariablen aufgerufen werden
-// echo $_SESSION["userEmail"];
-// echo $_SESSION["userID"];
-
-?>
-
       
   </body>
 </html>

@@ -50,7 +50,7 @@
           <a class="nav-link active" aria-current="page" href="showMyGames.php">Meine erstellten Spiele</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
+          <a class="nav-link active" aria-current="page" href="showJoinedGames.php">Beigetretene Spiele</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
@@ -97,7 +97,7 @@
     <h2>Beigetretene Spiele</h2>
     <p class="lead">Auf der Seite "Beigetretene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind, außer Sie haben diese gelöscht oder diese sind bereits abgeschlossen.
     </p>
-    <a class="btn btn-lg btn-primary" href="" role="button">Beigetretene Spiele &raquo;</a>
+    <a class="btn btn-lg btn-primary" href="showJoinedGames.php" role="button">Beigetretene Spiele &raquo;</a>
   </div>
 </main></br>
 
@@ -118,17 +118,6 @@
     <a class="btn btn-lg btn-primary" href="showInvitations.php" role="button">Einladungen &raquo;</a>
   </div>
 </main></br>
-
-
-<?php
-
-
-// mit $_SESSION["variablenname"] können die Sessionvariablen aufgerufen werden
-// echo $_SESSION["userEmail"];
-// echo $_SESSION["userID"];
-
-?>
-
       
   </body>
 </html>

@@ -45,33 +45,34 @@
     <?php 
         require "../classes/DBAccess.php";
     ?>    
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="homepage.php">Startseite</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="createGame.php">Spiele erstellen</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Meine Spiele</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Beigetretene Spiele</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Abgeschlossene Spiele</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Einladungen</a>
-            </li>
-        </ul>
-        </div>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="homepage.php">Startseite</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="createGame.php">Spiele erstellen</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="showMyGames.php">Meine erstellten Spiele</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="showJoinedGames.php">Beigetretene Spiele</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="showFinishedGames.php">Abgeschlossene Spiele</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="showInvitations.php">Einladungen</a>
+        </li>
+      </ul>
     </div>
-    </nav>
+  </div>
+  <button type="button" class="btn btn-primary" onclick="window.location.href='signin.php'">Abmelden</button>
+</nav>
 
     
     
