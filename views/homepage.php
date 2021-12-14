@@ -84,7 +84,7 @@
 <main class="container">
   <div class="bg-light p-5 rounded">
     <h2>Spiele erstellen</h2>
-    <p class="lead">Auf der Seite "Spiele erstellen" können Sie durch angabe eines Tasknamens, einer Taskbeschreibung und der zu einladenen Spieler ein Spiel 
+    <p class="lead">Auf der Seite "Spiele erstellen" können Sie durch angabe eines Tasknamens und einer Taskbeschreibung ein Spiel 
       erstellen.
     </p>
     <a class="btn btn-lg btn-primary" href="createGame.php" role="button">Spiele erstellen &raquo;</a>
@@ -94,7 +94,7 @@
 <main class="container">
   <div class="bg-light p-5 rounded">
     <h2>Meine Spiele</h2>
-    <p class="lead">Unter "Meine Spiele" finden Sie alle Spiele die Sie jemals eröffnet haben, außer Sie haben diese gelöscht oder die Spiele sind bereits abgeschlossen.
+    <p class="lead">Unter "Meine Spiele" finden Sie alle Spiele die Sie jemals eröffnet haben, außer die Spiele sind bereits abgeschlossen.
     </p>
     <a class="btn btn-lg btn-primary" href="showMyGames.php" role="button">Meine erstellten Spiele &raquo;</a>
   </div>
@@ -103,7 +103,7 @@
 <main class="container">
   <div class="bg-light p-5 rounded">
     <h2>Beigetretene Spiele</h2>
-    <p class="lead">Auf der Seite "Beigetretene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind, außer Sie haben diese gelöscht oder diese sind bereits abgeschlossen.
+    <p class="lead">Auf der Seite "Beigetretene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind, außer diese sind bereits abgeschlossen.
     </p>
     <a class="btn btn-lg btn-primary" href="showJoinedGames.php" role="button">Beigetretene Spiele &raquo;</a>
   </div>
@@ -112,7 +112,7 @@
 <main class="container">
   <div class="bg-light p-5 rounded">
     <h2>Abgeschlossene Spiele Spiele</h2>
-    <p class="lead">Auf der Seite "Abgeschlossene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind und bereits abgeschlossen wurden.
+    <p class="lead">Auf der Seite "Abgeschlossene Spiele" finden Sie alle Spiele denen Sie jemals beigetreten sind oder die Sie erstellt haben und bereits abgeschlossen wurden.
     </p>
     <a class="btn btn-lg btn-primary" href="showFinishedGames.php" role="button">Abgeschlossene Spiele &raquo;</a>
   </div>
