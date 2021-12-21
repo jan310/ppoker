@@ -88,7 +88,7 @@
     require "../classes/DBAccess.php";
     $dbAccess = new DBAccess();
 
-    $array = $dbAccess->getJoinedGames(htmlspecialchars($_SESSION["userID"]));
+    $array = $dbAccess->getJoinedNotFinishedGames(htmlspecialchars($_SESSION["userID"]));
 
     foreach($array as $game){
         echo

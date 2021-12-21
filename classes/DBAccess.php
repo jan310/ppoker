@@ -247,9 +247,9 @@ class DBAccess
         }
     }
 
-    public function getJoinedGames($userId){
+    public function getJoinedNotFinishedGames($userId){
         $games = $this->executeFetchAll(
-            "SELECT planninggame.userStory, planninggame.id FROM planninggame, participation WHERE planninggame.id = participation.gameId AND participation.userid = :userId AND participation.status = :joined",
+            "SELECT planninggame.userStory, planninggame.id FROM planninggame, participation WHERE planninggame.id = participation.gameId AND participation.userid = :userId AND participation.status = :joined AND planninggame.finished = 0",
             [
                 ":userId" => $userId,
                 ":joined" => Status::JOINED->value
